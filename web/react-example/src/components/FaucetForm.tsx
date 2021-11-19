@@ -53,15 +53,17 @@ const FaucetForm = () => {
         e.preventDefault();
         try {
             setInProgress(true);
-            const token = await executeCaptcha(address);
+            //const token = await executeCaptcha(address);
+            console.log("requesting funds")
             const res = await requestFunds({
                 walletAddress: address,
-                captchaResponse: token,
+                captchaResponse: "",
             } as FundsRequest)
+            console.log("funds requested")
             setFundsResponse(res);
             setOpenFunded(true);
             setInProgress(false);
-        } catch (err) {
+        } catch (err: any) {
             if (err.response && err.response.data && err.response.data.message) {
                 setOpenErr(true);
                 setError(err.response.data.message);
