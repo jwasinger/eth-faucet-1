@@ -1,0 +1,14 @@
+FROM node:17-bullseye
+
+ADD web/react-example /root/react-example
+
+RUN npm install -g react-scripts
+RUN yarn add typescript
+ENV NODE_OPTIONS=--openssl-legacy-provider
+RUN cd /root/react-example && npm install
+RUN cd /root/react-example && yarn build 
+
+WORKDIR /root/react-example
+
+# app is on port 3000
+ENTRYPOINT ["yarn", "start"]
